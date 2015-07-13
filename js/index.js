@@ -5,10 +5,10 @@ $(function() {
 			parentSiblings = parent.siblings(),
 			clickOffsetX = ev.offsetX,
 			clickOffsetY = ev.offsetY,
-			ripple = parent.find('.effect');
+			ripple = parent.find('.ripple-effect');
 
 		if (ripple.length == 0) {
-			ripple = $('<i class="effect"></i>');
+			ripple = $('<i class="ripple-effect"></i>');
 
 			parent.prepend(ripple);
 		}
@@ -41,10 +41,12 @@ $(function() {
 			clickX = ev.pageX,
 			diameter = Math.max(sectionBody.height(), sectionBody.width());
 
+		cards.removeClass('expand');
+
 		cards.each(function(i) {
 			(function(counter, el) {
 				var c = $(el),
-					time = (300 / cards.length) * counter;
+					time = (250 / cards.length) * counter;
 
 				setTimeout(function() {
 					c.addClass('shrink');
@@ -60,5 +62,30 @@ $(function() {
 		});
 
 		bubblewrap.addClass('active');
+
+		setTimeout(function() {
+			bubble.removeClass('expand-bubble');
+			bubble.addClass('shrink-bubble');
+
+			setTimeout(function() {
+				bubble.removeClass('shrink-bubble');
+				bubble.addClass('expand-bubble');
+
+				cards.each(function(i) {
+					(function(counter, el) {
+						var c = $(el),
+							time = (250 / cards.length) * counter;
+
+						setTimeout(function() {
+							c.addClass('expand');
+						}, time);
+					})(i, this);
+				});
+
+				setTimeout(function() {
+					cards.removeClass('shrink');
+				}, 250);
+			}, 1000);
+		}, 250);
 	});
 });

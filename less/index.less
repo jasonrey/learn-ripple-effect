@@ -71,7 +71,7 @@ body {
 	}
 }
 
-.effect {
+.ripple-effect {
 	position: absolute;
 	background-color: #00bcd4;
 	border-radius: 100%;
@@ -85,8 +85,22 @@ body {
 }
 
 @keyframes shrinkbubble {
+	0 {
+		transform: scale(2.5);
+	}
+
 	100% {
 		transform: scale(0);
+	}
+}
+
+@keyframes expandbubble {
+	0 {
+		transform: scale(0);
+	}
+
+	100% {
+		transform: scale(2.5);
 	}
 }
 
@@ -109,6 +123,15 @@ body {
 		border-radius: 100%;
 		background-color: #fff;
 		transform: scale(2.5);
+
+		&.shrink-bubble {
+			animation: shrinkbubble .5s ease forwards;
+		}
+
+		&.expand-bubble {
+			transform: scale(0);
+			animation: expandbubble .5s ease forwards;
+		}
 	}
 }
 
@@ -141,7 +164,7 @@ body {
 		&.active {
 			border-color: #00bcd4;
 
-			.effect {
+			.ripple-effect {
 				animation: ripple .7s ease;
 			}
 		}
@@ -173,7 +196,7 @@ body {
 		}
 
 		&.active {
-			.effect {
+			.ripple-effect {
 				animation: ripplefill 1s ease forwards;
 			}
 		}
@@ -194,6 +217,16 @@ body {
 	}
 }
 
+@keyframes expandcard {
+	80% {
+		transform: scale(1.2);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
 .cards {
 	.card {
 		width: 250px;
@@ -206,6 +239,11 @@ body {
 
 		&.shrink {
 			animation: shrinkcard .4s ease forwards;
+		}
+
+		&.expand {
+			transform: scale(0);
+			animation: expandcard .4s ease forwards;
 		}
 
 		.card-content {
